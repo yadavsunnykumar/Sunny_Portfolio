@@ -9,7 +9,7 @@ export default defineConfig({
   build: {
     outDir: 'dist', // Output directory
     sourcemap: false, // Disable source maps for security
-    minify: 'terser', // Minify using Terser
+    minify: 'esbuild', // Minify using esbuild
     chunkSizeWarningLimit: 1000, // Adjust chunk size limit
   },
   server: {
