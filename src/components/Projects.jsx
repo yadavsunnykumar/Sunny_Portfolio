@@ -33,7 +33,19 @@ function Projects({ darkMode }) {
                 >
                   {project.title}
                 </h3>
-                <p className={` text-gray-600 mt-2`}>{project.description}</p>
+                <p className={` text-sm text-gray-500 mt-2`}>
+                  Key Features:
+                  <br />
+                </p>
+                <ul className="text-gray-600 mt-2 list-disc ml-5">
+                  {project.description
+                    .split(".")
+                    .filter(Boolean)
+                    .map((point, index) => (
+                      <li key={index}>{point.trim()}.</li>
+                    ))}
+                </ul>
+
                 <p className={` text-sm text-gray-500 mt-2`}>
                   Tech: {project.tech}
                 </p>
