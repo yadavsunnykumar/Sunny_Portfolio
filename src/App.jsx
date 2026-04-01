@@ -194,7 +194,7 @@ function App() {
         </section>
       </div>
 
-      <Footer />
+      <Footer darkMode={darkMode} />
 
       {/* Back to top */}
       <AnimatePresence>
