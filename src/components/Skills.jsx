@@ -1,26 +1,36 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { FaHtml5, FaCss3Alt, FaJs, FaReact, FaNodeJs, FaDatabase, FaPython, FaJava } from "react-icons/fa";
-import { SiTypescript, SiNextdotjs, SiExpress, SiTailwindcss, SiSpringboot, SiMysql } from "react-icons/si";
+import { FaJs, FaReact, FaDatabase, FaPython, FaDocker, FaAws, FaGithub } from "react-icons/fa";
+import {
+  SiNextdotjs, SiTailwindcss, SiMysql, SiPostgresql, SiMongodb,
+  SiFastapi, SiNestjs, SiLangchain, SiTensorflow, SiScikitlearn,
+  SiPandas, SiNumpy, SiPostman, SiDocker,
+} from "react-icons/si";
 
 const skills = [
-  { name: "HTML5",       icon: FaHtml5,       color: "text-orange-500", bg: "bg-orange-500/10 border-orange-500/20", level: 95 },
-  { name: "CSS3",        icon: FaCss3Alt,     color: "text-blue-500",   bg: "bg-blue-500/10 border-blue-500/20",     level: 90 },
-  { name: "JavaScript",  icon: FaJs,          color: "text-yellow-400", bg: "bg-yellow-400/10 border-yellow-400/20", level: 88 },
-  { name: "TypeScript",  icon: SiTypescript,  color: "text-blue-400",   bg: "bg-blue-400/10 border-blue-400/20",     level: 78 },
-  { name: "React",       icon: FaReact,       color: "text-cyan-400",   bg: "bg-cyan-400/10 border-cyan-400/20",     level: 92 },
-  { name: "Next.js",     icon: SiNextdotjs,   color: "text-gray-300",   bg: "bg-gray-400/10 border-gray-400/20",     level: 80 },
-  { name: "Node.js",     icon: FaNodeJs,      color: "text-green-500",  bg: "bg-green-500/10 border-green-500/20",   level: 85 },
-  { name: "Express",     icon: SiExpress,     color: "text-gray-400",   bg: "bg-gray-400/10 border-gray-400/20",     level: 83 },
-  { name: "MongoDB",     icon: FaDatabase,    color: "text-green-600",  bg: "bg-green-600/10 border-green-600/20",   level: 80 },
-  { name: "Python",      icon: FaPython,      color: "text-yellow-300", bg: "bg-yellow-300/10 border-yellow-300/20", level: 75 },
-  { name: "Java",        icon: FaJava,        color: "text-red-400",    bg: "bg-red-400/10 border-red-400/20",       level: 72 },
-  { name: "Spring Boot", icon: SiSpringboot,  color: "text-green-400",  bg: "bg-green-400/10 border-green-400/20",   level: 70 },
-  { name: "MySQL",       icon: SiMysql,       color: "text-blue-400",   bg: "bg-blue-400/10 border-blue-400/20",     level: 75 },
-  { name: "Tailwind",    icon: SiTailwindcss, color: "text-sky-400",    bg: "bg-sky-400/10 border-sky-400/20",       level: 90 },
+  { name: "Python",       icon: FaPython,       color: "text-yellow-300", bg: "bg-yellow-300/10 border-yellow-300/20", level: 90 },
+  { name: "JavaScript",   icon: FaJs,           color: "text-yellow-400", bg: "bg-yellow-400/10 border-yellow-400/20", level: 88 },
+  { name: "ReactJS",      icon: FaReact,        color: "text-cyan-400",   bg: "bg-cyan-400/10 border-cyan-400/20",     level: 92 },
+  { name: "FastAPI",      icon: SiFastapi,      color: "text-teal-400",   bg: "bg-teal-400/10 border-teal-400/20",     level: 85 },
+  { name: "LangChain",    icon: SiLangchain,    color: "text-green-400",  bg: "bg-green-400/10 border-green-400/20",   level: 80 },
+  { name: "Next.js",      icon: SiNextdotjs,    color: "text-gray-300",   bg: "bg-gray-400/10 border-gray-400/20",     level: 82 },
+  { name: "NestJS",       icon: SiNestjs,       color: "text-red-400",    bg: "bg-red-400/10 border-red-400/20",       level: 75 },
+  { name: "Tailwind",     icon: SiTailwindcss,  color: "text-sky-400",    bg: "bg-sky-400/10 border-sky-400/20",       level: 88 },
+  { name: "TensorFlow",   icon: SiTensorflow,   color: "text-orange-400", bg: "bg-orange-400/10 border-orange-400/20", level: 68 },
+  { name: "Scikit-learn", icon: SiScikitlearn,  color: "text-orange-300", bg: "bg-orange-300/10 border-orange-300/20", level: 72 },
+  { name: "Pandas",       icon: SiPandas,       color: "text-blue-400",   bg: "bg-blue-400/10 border-blue-400/20",     level: 78 },
+  { name: "NumPy",        icon: SiNumpy,        color: "text-blue-300",   bg: "bg-blue-300/10 border-blue-300/20",     level: 78 },
+  { name: "PostgreSQL",   icon: SiPostgresql,   color: "text-sky-400",    bg: "bg-sky-400/10 border-sky-400/20",       level: 78 },
+  { name: "MongoDB",      icon: SiMongodb,      color: "text-green-500",  bg: "bg-green-500/10 border-green-500/20",   level: 80 },
+  { name: "MySQL",        icon: SiMysql,        color: "text-blue-400",   bg: "bg-blue-400/10 border-blue-400/20",     level: 75 },
+  { name: "Pinecone",     icon: FaDatabase,     color: "text-purple-400", bg: "bg-purple-400/10 border-purple-400/20", level: 70 },
+  { name: "Docker",       icon: SiDocker,       color: "text-blue-500",   bg: "bg-blue-500/10 border-blue-500/20",     level: 72 },
+  { name: "AWS",          icon: FaAws,          color: "text-orange-400", bg: "bg-orange-400/10 border-orange-400/20", level: 68 },
+  { name: "Git & GitHub", icon: FaGithub,       color: "text-gray-300",   bg: "bg-gray-400/10 border-gray-400/20",     level: 90 },
+  { name: "Postman",      icon: SiPostman,      color: "text-orange-500", bg: "bg-orange-500/10 border-orange-500/20", level: 82 },
 ];
 
-const INITIAL_COUNT = 7;
+const INITIAL_COUNT = 8;
 
 function Skills({ darkMode }) {
   const [showAll, setShowAll] = useState(false);

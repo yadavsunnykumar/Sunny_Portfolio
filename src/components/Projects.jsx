@@ -20,6 +20,7 @@ const techColors = {
   "shadcn/ui": "bg-violet-500/10 text-violet-400 border-violet-500/20",
   "Gemini AI": "bg-blue-400/10 text-blue-300 border-blue-400/20",
   Vapi: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20",
+  OpenAI: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
   Flask: "bg-gray-600/10 text-gray-300 border-gray-600/20",
   SQLite: "bg-cyan-700/10 text-cyan-500 border-cyan-700/20",
   HTML: "bg-orange-500/10 text-orange-400 border-orange-500/20",
