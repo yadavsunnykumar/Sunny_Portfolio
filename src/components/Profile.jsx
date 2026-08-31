@@ -22,7 +22,7 @@ function Profile({ darkMode }) {
         {/* Image */}
         <div className="relative w-48 h-48 rounded-full border-4 border-blue-500/40 overflow-hidden">
           <img
-            src="/profile.png"
+            src="/profile.jpg"
             alt="Sunny Kumar Yadav"
             className="w-full h-full object-cover"
           />
