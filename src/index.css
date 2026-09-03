@@ -1,1 +1,382 @@
 @import "tailwindcss";
+
+/* Token names registered with Tailwind (values are the dark-mode
+   fallback; the real per-theme values live in the :root blocks below) */
+@theme {
+  --color-bg: #000000;
+  --color-ink: #f5f1ea;
+  --color-muted: rgba(245, 241, 234, 0.82);
+  --color-faint: rgba(245, 241, 234, 0.55);
+
+  --color-accent: #00ff41;
+  --color-accent-soft: #4ade80;
+  --color-accent-deep: #15803d;
+
+  --color-line: rgba(134, 239, 172, 0.1);
+  --color-line-strong: rgba(134, 239, 172, 0.18);
+  --color-line-bright: rgba(134, 239, 172, 0.32);
+  --color-surface: rgba(134, 239, 172, 0.035);
+  --color-surface-2: rgba(134, 239, 172, 0.06);
+
+  --font-display: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
+}
+
+/* ---- Light theme (warm paper + green) — the default ---- */
+:root {
+  color-scheme: light;
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --color-bg: #f5f1ea;
+  --color-ink: #17170f;
+  --color-muted: rgba(23, 23, 15, 0.72);
+  --color-faint: rgba(23, 23, 15, 0.5);
+
+  --color-accent: #0e8a34;
+  --color-accent-soft: #15803d;
+  --color-accent-deep: #0b5f2a;
+
+  --color-line: rgba(14, 138, 52, 0.16);
+  --color-line-strong: rgba(14, 138, 52, 0.3);
+  --color-line-bright: rgba(14, 138, 52, 0.5);
+  --color-surface: rgba(14, 138, 52, 0.05);
+  --color-surface-2: rgba(14, 138, 52, 0.09);
+
+  --sheen: rgba(14, 138, 52, 0.16);
+  --grid-dot: rgba(14, 138, 52, 0.14);
+  --selection-fg: #ffffff;
+  --font-display: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
+}
+
+/* ---- Dark theme (terminal / matrix green) ---- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --color-bg: #000000;
+    --color-ink: #f5f1ea;
+    --color-muted: rgba(245, 241, 234, 0.82);
+    --color-faint: rgba(245, 241, 234, 0.55);
+    --color-accent: #00ff41;
+    --color-accent-soft: #4ade80;
+    --color-accent-deep: #15803d;
+    --color-line: rgba(134, 239, 172, 0.1);
+    --color-line-strong: rgba(134, 239, 172, 0.18);
+    --color-line-bright: rgba(134, 239, 172, 0.32);
+    --color-surface: rgba(134, 239, 172, 0.035);
+    --color-surface-2: rgba(134, 239, 172, 0.06);
+    --sheen: rgba(0, 255, 65, 0.14);
+    --grid-dot: rgba(74, 222, 128, 0.16);
+    --selection-fg: #ffffff;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-bg: #000000;
+  --color-ink: #f5f1ea;
+  --color-muted: rgba(245, 241, 234, 0.82);
+  --color-faint: rgba(245, 241, 234, 0.55);
+  --color-accent: #00ff41;
+  --color-accent-soft: #4ade80;
+  --color-accent-deep: #15803d;
+  --color-line: rgba(134, 239, 172, 0.1);
+  --color-line-strong: rgba(134, 239, 172, 0.18);
+  --color-line-bright: rgba(134, 239, 172, 0.32);
+  --color-surface: rgba(134, 239, 172, 0.035);
+  --color-surface-2: rgba(134, 239, 172, 0.06);
+  --sheen: rgba(0, 255, 65, 0.14);
+  --grid-dot: rgba(74, 222, 128, 0.16);
+  --selection-fg: #ffffff;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    transition: background-color 0.4s var(--ease-out-expo), color 0.4s var(--ease-out-expo);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.022em;
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--selection-fg);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+@layer components {
+  /* Monospace eyebrow label, e.g. [ 02 // experience ] */
+  .bracket {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    line-height: 1;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-accent-soft);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.85rem, 4vw, 2.6rem);
+    font-weight: 500;
+    letter-spacing: -0.022em;
+    line-height: 1.05;
+  }
+
+  /* Translucent panel that matches the page background (header, FAB) */
+  .surface-blur {
+    background: color-mix(in srgb, var(--color-bg) 72%, transparent);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  /* Card with diagonal green "scan" sheen on hover */
+  .card {
+    position: relative;
+    isolation: isolate;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.22s var(--ease-out-expo),
+      background-color 0.22s var(--ease-out-expo),
+      transform 0.22s var(--ease-out-expo);
+  }
+
+  /* keep real content above the decorative sheen / spotlight layers */
+  .card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Cursor spotlight — follows the pointer via --mx / --my (set in App) */
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: radial-gradient(
+      240px circle at var(--mx, 50%) var(--my, 50%),
+      color-mix(in srgb, var(--color-accent) 12%, transparent),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.3s var(--ease-out-expo);
+  }
+
+  .card:hover::before {
+    opacity: 1;
+  }
+
+  .card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: linear-gradient(
+      115deg,
+      transparent 32%,
+      color-mix(in srgb, var(--sheen) 40%, transparent) 46%,
+      var(--sheen) 50%,
+      color-mix(in srgb, var(--sheen) 40%, transparent) 54%,
+      transparent 68%
+    );
+    background-size: 260% 100%;
+    background-position: 125% 0;
+    opacity: 0;
+    z-index: 0;
+    transition: background-position 0.72s var(--ease-out-expo), opacity 0.22s var(--ease-out-expo);
+  }
+
+  .card:hover {
+    border-color: var(--color-line-bright);
+    background: var(--color-surface-2);
+    transform: translateY(-3px);
+  }
+
+  .card:hover::after {
+    opacity: 1;
+    background-position: -25% 0;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 44px;
+    padding: 0.7rem 1.4rem;
+    border: 1px solid transparent;
+    border-radius: 9999px;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: transform 0.22s var(--ease-out-expo), box-shadow 0.22s var(--ease-out-expo),
+      background-color 0.22s var(--ease-out-expo), border-color 0.22s var(--ease-out-expo),
+      color 0.22s var(--ease-out-expo);
+  }
+
+  .btn-primary {
+    color: var(--color-bg);
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+  }
+
+  .btn-primary:hover {
+    border-color: var(--color-accent-soft);
+    box-shadow: 0 0 0 1px var(--color-accent-soft),
+      0 0 24px color-mix(in srgb, var(--color-accent) 32%, transparent);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    color: var(--color-ink);
+    background: transparent;
+    border-color: var(--color-line-strong);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-line-bright);
+    background: color-mix(in srgb, var(--color-ink) 6%, transparent);
+    transform: translateY(-1px);
+  }
+
+  /* Animated matrix dot-grid backdrop */
+  .dot-grid {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, var(--grid-dot) 1px, transparent 1px);
+    background-size: 26px 26px;
+    -webkit-mask-image: radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      #000 0%,
+      rgba(0, 0, 0, 0.35) 55%,
+      transparent 85%
+    );
+    mask-image: radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      #000 0%,
+      rgba(0, 0, 0, 0.35) 55%,
+      transparent 85%
+    );
+    animation: dot-cascade 32s linear infinite;
+  }
+
+  @keyframes dot-cascade {
+    to {
+      background-position: 0 26px;
+    }
+  }
+
+  /* Hero neural-network visualization */
+  .neural-backdrop {
+    position: absolute;
+    inset: -8% -4% auto -4%;
+    height: 116%;
+    z-index: 0;
+    pointer-events: none;
+    -webkit-mask-image: radial-gradient(
+      ellipse 66% 58% at 52% 44%,
+      #000 0%,
+      rgba(0, 0, 0, 0.45) 52%,
+      transparent 78%
+    );
+    mask-image: radial-gradient(
+      ellipse 66% 58% at 52% 44%,
+      #000 0%,
+      rgba(0, 0, 0, 0.45) 52%,
+      transparent 78%
+    );
+  }
+
+  .nb-edge {
+    animation: nb-pulse 4.5s var(--ease-out-expo) infinite;
+  }
+
+  .nb-node {
+    animation: nb-blink 3.6s var(--ease-out-expo) infinite;
+  }
+
+  @keyframes nb-pulse {
+    0%,
+    100% {
+      stroke-opacity: 0.06;
+    }
+    50% {
+      stroke-opacity: 0.2;
+    }
+  }
+
+  @keyframes nb-blink {
+    0%,
+    100% {
+      fill-opacity: 0.3;
+    }
+    50% {
+      fill-opacity: 0.95;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  body {
+    transition: none;
+  }
+  .dot-grid,
+  .nb-edge,
+  .nb-node {
+    animation: none;
+  }
+  .card::after {
+    transition: none;
+  }
+}

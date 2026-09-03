@@ -1,15 +1,15 @@
 import React from "react";
 
-const Footer = ({ darkMode }) => {
+const Footer = () => {
   return (
-    <footer
-      className={`border-t mt-20 py-8 ${
-        darkMode ? "border-gray-800 bg-gray-950" : "border-gray-100 bg-slate-50"
-      }`}
-    >
-      <div className="max-w-6xl mx-auto px-6 flex justify-center">
-        <p className="text-sm text-gray-500">
-          © {new Date().getFullYear()} Sunny Kumar Yadav. All Rights Reserved.
+    <footer className="relative z-10 border-t border-line mt-24">
+      <div className="max-w-[1200px] mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p className="font-mono text-xs tracking-[0.1em] text-faint">
+          <span className="text-accent">~/</span>sunny-kumar-yadav —{" "}
+          {new Date().getFullYear()}
+        </p>
+        <p className="font-mono text-xs tracking-[0.1em] text-faint">
+          built with React · Tailwind · framer-motion
         </p>
       </div>
     </footer>

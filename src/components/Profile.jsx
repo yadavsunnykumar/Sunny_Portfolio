@@ -1,123 +1,109 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
+import Magnetic from "./Magnetic";
 
-function Profile({ darkMode }) {
+const ease = [0.22, 1, 0.36, 1];
+
+function Profile() {
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="flex flex-col md:flex-row items-center gap-12"
+      className="flex flex-col md:flex-row items-start md:items-center gap-12 md:gap-16"
     >
-      {/* Profile image with animated ring */}
+      {/* Portrait */}
       <motion.div
-        initial={{ scale: 0, rotate: -10 }}
-        animate={{ scale: 1, rotate: 0 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.7, ease }}
         className="relative flex-shrink-0"
       >
-        {/* Glow */}
-        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 blur-xl opacity-40 scale-110" />
-        {/* Image */}
-        <div className="relative w-48 h-48 rounded-full border-4 border-blue-500/40 overflow-hidden">
+        <div className="absolute -inset-4 rounded-2xl bg-accent/15 blur-2xl" />
+        <div className="relative w-44 h-44 md:w-52 md:h-52 rounded-2xl border border-line-bright overflow-hidden">
           <img
             src="/profile.jpg"
             alt="Sunny Kumar Yadav"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover grayscale-[0.35] contrast-105"
           />
+          <div className="absolute inset-0 bg-accent/10 mix-blend-overlay" />
         </div>
-        {/* Rotating dashed ring */}
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-          className="absolute -inset-3 rounded-full border-2 border-dashed border-blue-400/30"
-        />
+        {/* corner ticks */}
+        <span className="absolute -top-1 -left-1 w-4 h-4 border-t border-l border-accent" />
+        <span className="absolute -bottom-1 -right-1 w-4 h-4 border-b border-r border-accent" />
       </motion.div>
 
-      {/* Text content */}
-      <div>
-        <motion.p
+      {/* Copy */}
+      <div className="min-w-0">
+        <motion.span
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="text-blue-400 font-medium mb-2 tracking-wide"
+          transition={{ delay: 0.15 }}
+          className="bracket"
         >
-          Hello, I'm
-        </motion.p>
+          $ whoami
+        </motion.span>
 
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="text-5xl md:text-6xl font-bold mb-3 leading-tight"
+          transition={{ delay: 0.25, ease }}
+          className="mt-4 text-5xl md:text-6xl font-medium leading-[1.02]"
         >
-          Sunny Kumar{" "}
-          <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-            Yadav
-          </span>
+          Sunny Kumar <span className="text-accent-soft">Yadav</span>
         </motion.h1>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="text-xl font-medium mb-6"
+          transition={{ delay: 0.35 }}
+          className="mt-4 text-lg md:text-xl font-mono text-muted"
         >
-          <span className={darkMode ? "text-gray-300" : "text-gray-600"}>
-            I'm a{" "}
-          </span>
+          <span className="text-faint">&gt;&nbsp;</span>
           <TypeAnimation
             sequence={[
-              "Web Developer",
-              2000,
-              "MERN Stack Engineer",
-              2000,
               "Full-Stack Developer",
               2000,
-              "React Specialist",
+              "AI Application Engineer",
+              2000,
+              "React + FastAPI",
+              2000,
+              "Backend + Frontend",
               2000,
             ]}
             repeat={Infinity}
-            className="text-blue-400 font-semibold"
+            className="text-accent"
           />
         </motion.div>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className={`max-w-lg leading-relaxed mb-8 ${
-            darkMode ? "text-gray-400" : "text-gray-600"
-          }`}
+          transition={{ delay: 0.45 }}
+          className="mt-6 max-w-xl leading-relaxed text-muted"
         >
-          Passionate full-stack developer crafting modern web experiences with
-          the MERN stack. Currently working at TheMathCompany, building
-          scalable AI-powered applications that matter.
+          Full-stack developer building AI-powered products across frontend and
+          backend. Currently at TheMathCompany, shipping scalable applications
+          with React, FastAPI and NestJS for pharma and insurance clients.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="flex flex-wrap gap-4"
+          transition={{ delay: 0.55 }}
+          className="mt-8 flex flex-wrap gap-3"
         >
-          <a
-            href="#projects"
-            className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-medium hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 hover:-translate-y-0.5"
-          >
-            View Projects
-          </a>
-          <a
-            href="#experience"
-            className={`px-6 py-3 rounded-xl font-medium border transition-all duration-300 hover:-translate-y-0.5 ${
-              darkMode
-                ? "border-gray-700 text-gray-300 hover:border-blue-500/50 hover:text-white"
-                : "border-gray-200 text-gray-700 hover:border-blue-400 hover:text-gray-900"
-            }`}
-          >
-            My Experience
-          </a>
+          <Magnetic strength={8}>
+            <a href="#projects" className="btn btn-primary">
+              View Projects
+            </a>
+          </Magnetic>
+          <Magnetic strength={8}>
+            <a href="#experience" className="btn btn-secondary">
+              My Experience
+            </a>
+          </Magnetic>
         </motion.div>
       </div>
     </motion.div>
